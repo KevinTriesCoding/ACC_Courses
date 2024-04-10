@@ -1,0 +1,62 @@
+
+1.	SELECT COUNT(*) AS NumberOfPenalties, MAX(AMOUNT) AS HighestPenaltyAmount FROM PENALTIES 	LIMIT 0, 1000
+
+\
+# NumberOfPenalties	HighestPenaltyAmount\
+8	100.00\
+\
+
+2. 	SELECT PLAYERNO, MAX(AMOUNT) - MIN(AMOUNT) AS PenaltyAmountDifference
+	FROM PENALTIES
+	GROUP BY PLAYERNO;
+
+\
+# PLAYERNO, PenaltyAmountDifference\
+'6', '0.00'\
+'44', '50.00'\
+'27', '25.00'\
+'104', '0.00'\
+'8', '0.00'\
+\
+
+3. 	SELECT TEAMS.TEAMNO, COUNT(MATCHES.MATCHNO) AS NumberOfMatches, SUM(MATCHES.WON) AS 		SetsWon
+	FROM TEAMS
+	JOIN MATCHES ON TEAMS.TEAMNO = MATCHES.TEAMNO
+	WHERE TEAMS.DIVISION = 'first'
+	GROUP BY TEAMS.TEAMNO;
+
+\
+# TEAMNO, NumberOfMatches, SetsWon\
+'1', '8', '15'\
+\
+\
+
+4. 	SELECT NAME, INITIALS
+	FROM PLAYERS
+	WHERE PLAYERNO IN (
+    		SELECT PLAYERNO
+    		FROM PENALTIES
+    		WHERE AMOUNT > 40
+    		GROUP BY PLAYERNO
+    		HAVING COUNT(*) >= 2
+		);
+
+\
+# NAME, INITIALS\
+'Collins', 'DD'\
+\
+
+
+5. 	(SELECT MATCHNO FROM MATCHES ORDER BY MATCHNO DESC LIMIT 2)
+	UNION
+	(SELECT MATCHNO FROM MATCHES ORDER BY MATCHNO ASC LIMIT 2);
+
+\
+\
+ # MATCHNO\
+'13'\
+'12'\
+'1'\
+'2'\
+\
+}

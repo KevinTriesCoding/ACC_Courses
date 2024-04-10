@@ -1,0 +1,74 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 A) SELECT TEAMS.TEAMNO\
+FROM PLAYERS\
+JOIN TEAMS ON PLAYERS.PLAYERNO = TEAMS.PLAYERNO\
+WHERE PLAYERS.NAME = 'Parmenter' AND PLAYERS.INITIALS = 'R';\
+\
+TEAMNO\
+'1'\
+\
+B) SELECT PENALTIES.PAYMENTNO, PENALTIES.AMOUNT, PLAYERS.PLAYERNO, PLAYERS.NAME\
+FROM PENALTIES\
+JOIN PLAYERS ON PENALTIES.PLAYERNO = PLAYERS.PLAYERNO;\
+\
+# PAYMENTNO, AMOUNT, PLAYERNO, NAME\
+'1', '100.00', '6', 'Parmenter'\
+'2', '75.00', '44', 'Baker'\
+'3', '100.00', '27', 'Collins'\
+'4', '50.00', '104', 'Moorman'\
+'5', '25.00', '44', 'Baker'\
+'6', '25.00', '8', 'Newcastle'\
+'7', '30.00', '44', 'Baker'\
+'8', '75.00', '27', 'Collins'\
+\
+\
+C) SELECT PLAYERS.PLAYERNO, GROUP_CONCAT(TEAMS.TEAMNO) AS TeamsPlayedFor\
+FROM PLAYERS\
+LEFT JOIN TEAMS ON PLAYERS.PLAYERNO = TEAMS.PLAYERNO\
+GROUP BY PLAYERS.PLAYERNO;\
+\
+# PLAYERNO, TeamsPlayedFor\
+'2', NULL\
+'6', '1'\
+'7', NULL\
+'8', NULL\
+'27', '2'\
+'28', NULL\
+'39', NULL\
+'44', NULL\
+'57', NULL\
+'83', NULL\
+'95', NULL\
+'100', NULL\
+'104', NULL\
+'112', NULL\
+\
+\
+\
+D) SELECT PLAYERNO\
+FROM MATCHES\
+WHERE WON > LOST\
+GROUP BY PLAYERNO;\
+\
+# PLAYERNO\
+'6'\
+'44'\
+'57'\
+'27'\
+'104'\
+\
+\
+E) SELECT PENALTIES.PAYMENTNO\
+FROM PENALTIES\
+JOIN PLAYERS ON PENALTIES.PLAYERNO = PLAYERS.PLAYERNO\
+WHERE PLAYERS.BIRTH_DATE > '1965-12-31';\
+\
+PAYMENT NO\
+\'914\'92\
+}
